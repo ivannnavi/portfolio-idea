@@ -22,6 +22,7 @@ body {
     font-family: 'Bricolage Grotesque', sans-serif;
     min-height: 100vh;
     color: var(--primary-text);
+    overflow: hidden;
 }
 
 .sky-background {
@@ -36,22 +37,13 @@ body {
     z-index: -1;
 }
 
-.two-column-layout {
-    display: grid;
-    grid-template-columns: 1fr;
+.card-container {
+    width: 100%;
     min-height: 100vh;
-    gap: 20px;
-    padding: 20px;
-}
-
-.left-column {
     display: flex;
-    align-items: center;
     justify-content: center;
-}
-
-.right-column {
-    display: none;
+    align-items: center;
+    padding: 20px;
 }
 
 .profile-card {
@@ -59,8 +51,8 @@ body {
     backdrop-filter: blur(10px);
     border-radius: 24px;
     padding: 32px;
-    width: 100%;
     max-width: 600px;
+    width: 100%;
     text-align: center;
 }
 
@@ -81,8 +73,8 @@ body {
 h1 {
     font-size: 2.5rem;
     font-weight: 700;
-    margin-bottom: 8px;
-    line-height: 1.2;
+    margin-bottom: 24px;
+    line-height: 1;
 }
 
 .subtitle {
@@ -94,7 +86,7 @@ h1 {
 .company {
     font-size: 1rem;
     color: var(--secondary-text);
-    margin-bottom: 32px;
+    margin-bottom: 48px;
 }
 
 .button-container {
@@ -113,22 +105,64 @@ h1 {
     text-decoration: none;
     border-radius: 12px;
     font-size: 1rem;
-    transition: transform 0.2s ease;
+    transition: transform 0.2s ease, background-image 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(180deg,
+            rgba(255, 255, 255, 0.2) 0%,
+            rgba(255, 255, 255, 0.05) 30%,
+            rgba(255, 255, 255, 0) 60%,
+            rgba(255, 255, 255, 0) 100%);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.btn:hover::before {
+    opacity: 1;
 }
 
 .btn:hover {
     transform: translateY(-2px);
 }
 
+.contact-btn {
+    position: relative;
+    padding-left: 48px;
+}
+
 .contact-btn img {
-    width: 24px;
-    height: 24px;
+    position: absolute;
+    left: -16px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 64px;
+    height: 64px;
     border-radius: 4px;
+    transition: transform 0.2s ease;
+}
+
+.contact-btn:hover img {
+    transform: translate(2px, calc(-50% - 2px)) scale(110%);
+
 }
 
 .portfolio-btn svg {
     width: 20px;
     height: 20px;
+    transition: transform 0.2s ease;
+}
+
+.portfolio-btn:hover svg {
+    transform: translateX(4px);
 }
 
 /* Tablet styles */
@@ -152,39 +186,14 @@ h1 {
 
 /* Desktop styles */
 @media (min-width: 1024px) {
-    .two-column-layout {
-        grid-template-columns: 1fr 2fr;
-        gap: 40px;
-        padding: 40px;
-    }
-
-    .right-column {
-        display: block;
-        position: relative;
-        width: 100%;
-        height: calc(100vh - 80px);
-        background: rgba(255, 255, 255, 0.05);
-        backdrop-filter: blur(5px);
-        border-radius: 24px;
-        overflow: hidden;
-    }
-
-    .right-column iframe {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        border: none;
-    }
-
     .profile-card {
         padding: 64px;
+        max-width: 800px;
     }
 
     .profile-image {
-        width: 240px;
-        height: 240px;
+        width: 272px;
+        height: 272px;
     }
 
     h1 {
@@ -192,11 +201,24 @@ h1 {
     }
 
     .button-container {
-        gap: 24px;
+        gap: 16px;
     }
 
     .btn {
-        padding: 16px 32px;
+        padding: 24px 32px;
         font-size: 1.1rem;
+    }
+
+    .contact-btn {
+        padding-left: 56px;
+        padding-right: 40px;
+        overflow: hidden;
+    }
+
+    .contact-btn img {
+        width: 88px;
+        height: 88px;
+        left: -48px;
+        top: 60px;
     }
 }

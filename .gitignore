@@ -1,0 +1,10 @@
+# Ignore Cards POC folder
+Cards POC/
+Cards\ POC/
+
+# Common files to ignore
+.DS_Store
+node_modules/
+.env
+.env.local
+.env.*.local 
